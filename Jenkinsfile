@@ -7,7 +7,7 @@ pipeline {
         // Define a variable for your Docker Hub credentials ID from Jenkins
         DOCKERHUB_CREDENTIALS_ID = 'dockerhub-credentials'
         // Define your Docker Hub username
-        DOCKERHUB_USERNAME = 'jdhruv'
+        DOCKERHUB_USERNAME = 'jdhruvr'
         // Define the name for your Docker image
         DOCKER_IMAGE_NAME = "${DOCKERHUB_USERNAME}/calculator-app"
     }
