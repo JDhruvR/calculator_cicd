@@ -13,13 +13,6 @@ pipeline {
     }
 
     stages {
-        stage('1. Pull Code from GitHub') {
-            steps {
-                echo 'Pulling the latest code from the repository...'
-                git 'https://github.com/JDhruvR/calculator_cicd.git'
-            }
-        }
-
         stage('2. Build and Test') {
             steps {
                 echo 'Building and running tests...'
