@@ -15,13 +15,21 @@ pipeline {
     stages {
         stage('2. Build and Test') {
             steps {
-                echo 'Building and running tests...'
-                // We use a python docker image to run the tests in a clean environment
-                script {
-                    docker.image('python:3.9-slim').inside {
-                        sh 'python -m unittest discover'
-                    }
-                }
+                echo 'Building and running tests using a direct docker run command...'
+                /*
+                 * This is a more robust way to run tests. Here's the breakdown:
+                 * 'docker run':  Execute a command in a new container.
+                 * '--rm':        Automatically remove the container when it exits. Keeps things clean.
+                 * '-v "$WORKSPACE":/app': Mount the Jenkins workspace directory (where your code is)
+                 *                         into a folder named '/app' inside the container.
+                 * '-w /app':     Set the working directory inside the container to '/app'.
+                 * 'python:3.9-slim': The image to use.
+                 * 'python -m unittest discover': The command to run inside the container.
+                 *
+                 * Because we set the working directory to /app where the code lives,
+                 * Python will correctly find both test_calculator.py and calculator.py.
+                 */
+                sh 'docker run --rm -v "$WORKSPACE":/app -w /app python:3.9-slim python -m unittest discover'
             }
         }
 
